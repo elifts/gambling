@@ -33,7 +33,14 @@
     <script>
         function submitText() {
             var inputValue = document.getElementById('textInput').value;
-            document.getElementById('result').innerText = "You entered: " + inputValue;
+            var resultElement = document.getElementById('result');
+
+            if (inputValue.toLowerCase() === 'proceed') {
+                // Redirect to a different website
+                window.location.href = 'https://example.com';
+            } else {
+                resultElement.innerText = "You entered: " + inputValue;
+            }
         }
     </script>
 </body>
