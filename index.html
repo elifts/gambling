@@ -35,25 +35,20 @@
       <option value="100">100</option>
       <option value="1000">1000</option>
       <option value="10000">10000</option>
-      <option value="100000">100000</option>
-      <option value="1000000">1000000</option>
     </select>
   </div>
 
-  <div id="counter">$1000</div>
+  <div id="counter">$10000000</div>
   <button onclick="playGame()">Roll Dice</button>
   <div id="result"></div>
 
   <script>
-    let balance = 10000000;
+    let balance = 10000;
 
     function playGame() {
       const betAmount = parseFloat(document.getElementById('betAmount').value);
 
-      if (balance < betAmount) {
-        alert("Not enough balance to place this bet!");
-        return;
-      }
+      
 
       // Deduct the selected bet amount
       balance -= betAmount;
