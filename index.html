@@ -20,6 +20,18 @@
       font-size: 18px;
       margin-top: 20px;
     }
+
+    #stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    #winList, #lossList {
+      flex-basis: 45%;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
@@ -38,17 +50,28 @@
     </select>
   </div>
 
-  <div id="counter">$10000000</div>
+  <div id="counter">$10000</div>
   <button onclick="playGame()">Roll Dice</button>
   <div id="result"></div>
 
+  <div id="stats">
+    <div id="winList">
+      <h3>Winnings</h3>
+      <ul id="winnings"></ul>
+    </div>
+    <div id="lossList">
+      <h3>Losses</h3>
+      <ul id="losses"></ul>
+    </div>
+  </div>
+
   <script>
     let balance = 10000;
+    const winList = document.getElementById('winnings');
+    const lossList = document.getElementById('losses');
 
     function playGame() {
       const betAmount = parseFloat(document.getElementById('betAmount').value);
-
-      
 
       // Deduct the selected bet amount
       balance -= betAmount;
@@ -74,10 +97,24 @@
         updateCounter();
         resultElement.style.color = 'green';
         resultElement.innerText = `Congratulations! You won $${winnings.toFixed(2)}!`;
+        addToWinList(betAmount, winnings);
       } else {
         resultElement.style.color = 'red';
         resultElement.innerText = 'Sorry, you did not win. Try again!';
+        addToLossList(betAmount);
       }
+    }
+
+    function addToWinList(betAmount, winnings) {
+      const listItem = document.createElement('li');
+      listItem.textContent = `$${betAmount.toFixed(2)} - Won $${winnings.toFixed(2)}`;
+      winList.appendChild(listItem);
+    }
+
+    function addToLossList(betAmount) {
+      const listItem = document.createElement('li');
+      listItem.textContent = `$${betAmount.toFixed(2)}`;
+      lossList.appendChild(listItem);
     }
   </script>
 
