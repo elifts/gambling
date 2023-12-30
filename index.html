@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    #counter {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #result {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dice Game</h1>
+
+  <div id="counter">$1000</div>
+  <button onclick="playGame()">Roll Dice</button>
+  <div id="result"></div>
+
+  <script>
+    let balance = 1000;
+
+    function playGame() {
+      // Deduct $1.15
+      balance -= 1.15;
+      updateCounter();
+
+      // Roll the dice with 1 in 3,575,880 chance of winning
+      const win = Math.floor(Math.random() * 3575880) === 0;
+
+      // Display the result
+      displayResult(win);
+    }
+
+    function updateCounter() {
+      document.getElementById('counter').innerText = `$${balance.toFixed(2)}`;
+    }
+
+    function displayResult(win) {
+      const resultElement = document.getElementById('result');
+
+      if (win) {
+        balance += 40000000;
+        updateCounter();
+        resultElement.style.color = 'green';
+        resultElement.innerText = 'Congratulations! You won $40 million!';
+      } else {
+        resultElement.style.color = 'red';
+        resultElement.innerText = 'Sorry, you did not win. Try again!';
+      }
+    }
+  </script>
+
+</body>
+</html>
