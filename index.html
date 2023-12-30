@@ -1,130 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>gamble</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-    }
-
-    #counter {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    #result {
-      font-size: 18px;
-      margin-top: 20px;
-    }
-
-    #stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
-
-    #winList {
-      flex-basis: 45%;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: greenyellow;
-    }
-    
-    #lossList {
-      flex-basis: 45%;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: rgb(255, 0, 0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Input Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <h1>Text Input Website</h1>
+    <form id="textInputForm">
+        <label for="textInput">Enter Text:</label>
+        <input type="text" id="textInput" name="textInput" required>
+        <button type="button" onclick="submitText()">Submit</button>
+    </form>
+    <p id="result"></p>
 
-  <h1>gamble Game</h1>
-
-  <div>
-    <label for="betAmount">Select bet amount:</label>
-    <select id="betAmount">
-      <option value="1">1</option>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="100">100</option>
-      <option value="1000">1000</option>
-      <option value="10000">10000</option>
-    </select>
-  </div>
-
-  <div id="counter">$10000</div>
-  <button onclick="playGame()">gamble</button>
-  <div id="result"></div>
-
-  <div id="stats">
-    <div id="winList">
-      <h3>Winnings</h3>
-      <ul id="winnings"></ul>
-    </div>
-    <div id="lossList">
-      <h3>Losses</h3>
-      <ul id="losses"></ul>
-    </div>
-  </div>
-
-  <script>
-    let balance = 10000;
-    const winList = document.getElementById('winnings');
-    const lossList = document.getElementById('losses');
-
-    function playGame() {
-      const betAmount = parseFloat(document.getElementById('betAmount').value);
-
-      // Deduct the selected bet amount
-      balance -= betAmount;
-      updateCounter();
-
-      // Adjust win probability based on the selected bet amount
-      const win = Math.floor(Math.random() * (1000000 / betAmount)) === 0;
-
-      // Display the result
-      displayResult(win, betAmount);
-    }
-
-    function updateCounter() {
-      document.getElementById('counter').innerText = `$${balance.toFixed(2)}`;
-    }
-
-    function displayResult(win, betAmount) {
-      const resultElement = document.getElementById('result');
-
-      if (win) {
-        const winnings = betAmount * 40;
-        balance += winnings;
-        updateCounter();
-        resultElement.style.color = 'green';
-        resultElement.innerText = `Congratulations! You won $${winnings.toFixed(2)}!`;
-        addToWinList(betAmount, winnings);
-      } else {
-        resultElement.style.color = 'red';
-        resultElement.innerText = 'Sorry, you did not win. Try again!';
-        addToLossList(betAmount);
-      }
-    }
-
-    function addToWinList(betAmount, winnings) {
-      const listItem = document.createElement('li');
-      listItem.textContent = `$${betAmount.toFixed(2)} - Won $${winnings.toFixed(2)}`;
-      winList.appendChild(listItem);
-    }
-
-    function addToLossList(betAmount) {
-      const listItem = document.createElement('li');
-      listItem.textContent = `$${betAmount.toFixed(2)}`;
-      lossList.appendChild(listItem);
-    }
-  </script>
-
+    <script>
+        function submitText() {
+            var inputValue = document.getElementById('textInput').value;
+            document.getElementById('result').innerText = "You entered: " + inputValue;
+        }
+    </script>
 </body>
 </html>
