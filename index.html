@@ -26,14 +26,21 @@
 
   <h1>Dice Game</h1>
 
+  <div>
+    <label for="betAmount">Select bet amount:</label>
+    <select id="betAmount">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="100">100</option>
+      <option value="1000">1000</option>
+      <option value="10000">10000</option>
+      <option value="100000">100000</option>
+      <option value="1000000">1000000</option>
+    </select>
+  </div>
+
   <div id="counter">$1000</div>
-  <label for="rollCount">Number of Rolls:</label>
-  <select id="rollCount">
-    <option value="1">1</option>
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="100">100</option>
-  </select>
   <button onclick="playGame()">Roll Dice</button>
   <div id="result"></div>
 
@@ -41,37 +48,37 @@
     let balance = 1000;
 
     function playGame() {
-      const rolls = parseInt(document.getElementById('rollCount').value, 10);
+      const betAmount = parseFloat(document.getElementById('betAmount').value);
 
-      // Deduct $1.15 for each roll
-      balance -= 1.15 * rolls;
-      updateCounter();
-
-      // Roll the dice for the specified number of times
-      let win = false;
-      for (let i = 0; i < rolls; i++) {
-        if (Math.floor(Math.random() * 3575880) === 0) {
-          win = true;
-          break;
-        }
+      if (balance < betAmount) {
+        alert("Not enough balance to place this bet!");
+        return;
       }
 
+      // Deduct the selected bet amount
+      balance -= betAmount;
+      updateCounter();
+
+      // Adjust win probability based on the selected bet amount
+      const win = Math.floor(Math.random() * (1000000 / betAmount)) === 0;
+
       // Display the result
-      displayResult(win);
+      displayResult(win, betAmount);
     }
 
     function updateCounter() {
       document.getElementById('counter').innerText = `$${balance.toFixed(2)}`;
     }
 
-    function displayResult(win) {
+    function displayResult(win, betAmount) {
       const resultElement = document.getElementById('result');
 
       if (win) {
-        balance += 40000000;
+        const winnings = betAmount * 40;
+        balance += winnings;
         updateCounter();
         resultElement.style.color = 'green';
-        resultElement.innerText = 'Congratulations! You won $40 million!';
+        resultElement.innerText = `Congratulations! You won $${winnings.toFixed(2)}!`;
       } else {
         resultElement.style.color = 'red';
         resultElement.innerText = 'Sorry, you did not win. Try again!';
